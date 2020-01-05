@@ -1,4 +1,4 @@
-# SinCos Art
+# CoSin Art
 
 This personal project aims to create generative art using simple parametric trigonometric equations.
 

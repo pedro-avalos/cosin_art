@@ -10,7 +10,7 @@ if __name__ == '__main__':
     root = tk.Tk()
     root.config(bg=menu_color)
     root.minsize(600, 650)
-    root.title("SinCos Art")
+    root.title("CoSin Art")
 
     app = App(root, menu_color)
 
