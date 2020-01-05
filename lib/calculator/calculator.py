@@ -27,6 +27,7 @@ class Calculator:
         self.const1 = random.randint(self.const1 - 100, self.const1 + 100)
         while self.const1 == 0 or self.const1 == self.last_const1:
             self.const1 = random.randint(self.const1 - 100, self.const1 + 100)
+
         self.const2 = random.randint(self.const2 - 100, self.const2 + 100)
         while self.const2 == 0 or self.const2 == self.last_const2 or self.const2 == abs(self.const1):
             self.const2 = random.randint(self.const2 - 100, self.const2 + 100)

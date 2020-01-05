@@ -20,14 +20,18 @@ class App:
 
         self.butt_frame_1 = tk.Frame(self.master, background=self.menu_color)
         self.butt_frame_1.pack(side=tk.LEFT, fill=tk.BOTH)
+
         self.spacer_1 = tk.Frame(self.master, bg=self.menu_color)
         self.spacer_1.config(width=20, highlightbackground=self.menu_color, highlightcolor=self.menu_color)
         self.spacer_1.pack(side=tk.LEFT, fill=tk.BOTH, padx=5, pady=5)
+
         self.graph_options_frame = tk.Frame(self.master, background=self.menu_color)
         self.graph_options_frame.pack(side=tk.LEFT, fill=tk.BOTH)
+
         self.spacer_2 = tk.Frame(self.master, bg=self.menu_color)
         self.spacer_2.config(width=25, bg=self.menu_color, highlightbackground=self.menu_color, highlightcolor=self.menu_color)
         self.spacer_2.pack(side=tk.LEFT, fill=tk.BOTH)
+
         self.butt_frame_2 = tk.Frame(self.master, background=self.menu_color)
         self.butt_frame_2.pack(side=tk.LEFT, fill=tk.BOTH)
 
@@ -105,5 +109,3 @@ class App:
             const2 = self.calculator.const2
 
             self.pil_image.save(f'../data/image_a{const1}_b{const2}.bmp')
-        else:
-            pass
