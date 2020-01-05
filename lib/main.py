@@ -29,7 +29,7 @@ class Calculator:
         while self.const1 == 0 or self.const1 == self.last_const1:
             self.const1 = random.randint(self.const1 - 100, self.const1 + 100)
         self.const2 = random.randint(self.const2 - 100, self.const2 + 100)
-        while self.const2 == 0 or self.const2 == self.last_const2 or self.const2 == self.const1:
+        while self.const2 == 0 or self.const2 == self.last_const2 or self.const2 == abs(self.const1):
             self.const2 = random.randint(self.const2 - 100, self.const2 + 100)
 
     def old_consts(self):
@@ -63,7 +63,7 @@ class Calculator:
 
         return size, start
 
-    def graph(self, color_mode='rainbow'):
+    def graph(self, color_mode='Rainbow'):
         if self.const1 == 0 and self.const2 == 0:
             size = (600, 650)
 
@@ -77,16 +77,17 @@ class Calculator:
             self.draw = ImageDraw.Draw(self.img)
 
             for t in range(self.iterations):
-                if color_mode == 'red':
-                    color = (int(t / self.iterations * 255), 0, 0)
-                elif color_mode == 'green':
-                    color = (0, int(t / self.iterations * 255), 0)
-                elif color_mode == 'blue':
-                    color = (0, 0, int(t / self.iterations * 255))
-                elif color_mode == 'white':
-                    color = (255, 255, 255)
+                color_fraction = t / self.iterations
+                if color_mode == 'Red':
+                    color = (int(color_fraction * 255), 0, 0)
+                elif color_mode == 'Green':
+                    color = (0, int(color_fraction * 255), 0)
+                elif color_mode == 'Blue':
+                    color = (0, 0, int(color_fraction * 255))
+                elif color_mode == 'White':
+                    color = (int(color_fraction * 255), int(color_fraction * 255), int(color_fraction * 255))
                 else:
-                    color = hsv2rgb(t / self.iterations, 1, 1)
+                    color = hsv2rgb(color_fraction, 1, 1)
 
                 self.draw.point((start[0] + self.x(t), start[1] + self.y(t)), fill=color)
 
@@ -94,7 +95,7 @@ class Calculator:
 
 
 class App:
-    def __init__(self, master):
+    def __init__(self, master, menu_color='Black'):
         self.master = master
 
         self.calculator = Calculator()
@@ -102,31 +103,31 @@ class App:
         self.pil_image = None
         self.image = None
 
-        self.canvas = tk.Canvas(self.master, background='Black')
+        self.canvas = tk.Canvas(self.master, background='Black', highlightthickness=1)
         self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
-        self.butt_frame = tk.Frame(self.master)
-        self.butt_frame.pack(side=tk.LEFT, fill=tk.BOTH)
-        self.const_frame = tk.Frame(self.master)
-        self.const_frame.pack(side=tk.RIGHT, fill=tk.BOTH)
+        self.menu_color = menu_color
 
-        self.back_button = tk.Button(self.butt_frame, text='Back', command=lambda: self.display('back'))
-        self.back_button.pack(side=tk.LEFT, fill=tk.BOTH)
-        self.new_button = tk.Button(self.butt_frame, text='Random', command=lambda: self.display('random'))
-        self.new_button.pack(side=tk.LEFT, fill=tk.BOTH)
-        self.save_button = tk.Button(self.butt_frame, text='Save', command=self.save)
+        self.butt_frame_1 = tk.Frame(self.master, background=self.menu_color)
+        self.butt_frame_1.pack(side=tk.LEFT, fill=tk.BOTH)
+        self.spacer_1 = tk.Frame(self.master, bg=self.menu_color)
+        self.spacer_1.config(width=20, highlightbackground=self.menu_color, highlightcolor=self.menu_color)
+        self.spacer_1.pack(side=tk.LEFT, fill=tk.BOTH, padx=5, pady=5)
+        self.graph_options_frame = tk.Frame(self.master, background=self.menu_color)
+        self.graph_options_frame.pack(side=tk.LEFT, fill=tk.BOTH)
+        self.spacer_2 = tk.Frame(self.master, bg=self.menu_color)
+        self.spacer_2.config(width=25, bg=self.menu_color, highlightbackground=self.menu_color, highlightcolor=self.menu_color)
+        self.spacer_2.pack(side=tk.LEFT, fill=tk.BOTH)
+        self.butt_frame_2 = tk.Frame(self.master, background=self.menu_color)
+        self.butt_frame_2.pack(side=tk.LEFT, fill=tk.BOTH)
+
+        self.save_button = tk.Button(self.butt_frame_1, text='Save', command=self.save)
+        self.save_button.config(bg=self.menu_color, bd=2, fg='White')
         self.save_button.pack(side=tk.LEFT, fill=tk.BOTH)
 
-        self.set_button = tk.Button(self.butt_frame, text='Set', command=lambda: self.display('set'))
-        self.set_button.pack(side=tk.BOTTOM, fill=tk.BOTH)
-
-        self.color_variable = tk.StringVar()
-        self.color_variable.set('rainbow')
-
-        self.color_options = ['rainbow', 'red', 'green', 'blue', 'white']
-
-        self.color_menu = tk.OptionMenu(self.butt_frame, self.color_variable, *self.color_options)
-        self.color_menu.pack(side=tk.RIGHT, fill=tk.BOTH)
+        self.back_button = tk.Button(self.butt_frame_1, text='Back', command=lambda: self.display('back'))
+        self.back_button.config(bg=self.menu_color, bd=2, fg='White')
+        self.back_button.pack(side=tk.LEFT, fill=tk.BOTH)
 
         self.entry_text1 = tk.StringVar()
         self.entry_text2 = tk.StringVar()
@@ -134,17 +135,39 @@ class App:
         self.entry_text1.set('0')
         self.entry_text2.set('0')
 
-        self.const1_label = tk.Label(self.const_frame, text='a = ')
+        self.const1_label = tk.Label(self.graph_options_frame, text='a = ')
+        self.const1_label.config(bg=self.menu_color, bd=2, fg='White')
         self.const1_label.pack(side=tk.LEFT)
 
-        self.const1_entry = tk.Entry(self.const_frame, textvariable=self.entry_text1)
-        self.const1_entry.pack(side=tk.LEFT)
+        self.const1_entry = tk.Entry(self.graph_options_frame, textvariable=self.entry_text1)
+        self.const1_entry.config(bg='Black', bd=2, fg='White')
+        self.const1_entry.pack(side=tk.LEFT, fill=tk.BOTH)
 
-        self.const2_label = tk.Label(self.const_frame, text='b = ')
+        self.const2_label = tk.Label(self.graph_options_frame, text='b = ')
+        self.const2_label.config(bg=self.menu_color, bd=2, fg='White')
         self.const2_label.pack(side=tk.LEFT)
 
-        self.const2_entry = tk.Entry(self.const_frame, textvariable=self.entry_text2)
-        self.const2_entry.pack(side=tk.LEFT)
+        self.const2_entry = tk.Entry(self.graph_options_frame, textvariable=self.entry_text2)
+        self.const2_entry.config(bg='Black', bd=2, fg='White')
+        self.const2_entry.pack(side=tk.LEFT, fill=tk.BOTH)
+
+        self.color_options = ['Rainbow', 'Red', 'Green', 'Blue', 'White']
+
+        self.color_variable = tk.StringVar()
+        self.color_variable.set(self.color_options[0])
+
+        self.color_menu = tk.OptionMenu(self.graph_options_frame, self.color_variable, *self.color_options)
+        self.color_menu.config(bg=self.menu_color, bd=2, fg='White', highlightthickness=0)
+        self.color_menu['menu'].config(bg=self.menu_color, fg='White')
+        self.color_menu.pack(side=tk.LEFT, fill=tk.BOTH)
+
+        self.set_button = tk.Button(self.butt_frame_2, text='Set', command=lambda: self.display('set'))
+        self.set_button.config(bg=self.menu_color, bd=2, fg='White')
+        self.set_button.pack(side=tk.LEFT, fill=tk.BOTH)
+
+        self.new_button = tk.Button(self.butt_frame_2, text='Random', command=lambda: self.display('random'))
+        self.new_button.config(bg=self.menu_color, bd=2, fg='White')
+        self.new_button.pack(side=tk.LEFT, fill=tk.BOTH)
 
     def display(self, event='random'):
         if event == 'random':
@@ -167,14 +190,20 @@ class App:
         root.geometry("%dx%d" % (size[0], size[1]+65))
 
     def save(self):
-        const1 = self.calculator.const1
-        const2 = self.calculator.const2
-        self.pil_image.save(f'../data/image_a{const1}_b{const2}.bmp')
+        if self.calculator.const1 != 0 and self.calculator.const2 != 0:
+            const1 = self.calculator.const1
+            const2 = self.calculator.const2
+
+            self.pil_image.save(f'../data/image_a{const1}_b{const2}.bmp')
+        else:
+            pass
 
 
 if __name__ == '__main__':
+    option_color = '#101030'
     root = tk.Tk()
+    root.config(bg=option_color)
     root.minsize(600, 650)
     root.title("SinCos Art")
-    app = App(root)
+    app = App(root, option_color)
     root.mainloop()
