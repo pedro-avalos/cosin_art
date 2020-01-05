@@ -25,14 +25,15 @@ Clone or download the .zip file of the project. Then unzip the file and run lib/
 
 There are four buttons, two text boxes, and a dropdown menu.  
 
-You can use the four main buttons to:
+You can use the three main buttons to:
 * Create a random art piece
 * Go back to the last art piece
 * Save the art piece in the 'data' folder
 
 The dropdown menu can be used to switch between color modes for the graph.  
 
-Additionally there are two entries / text boxes and a 'set' button. Use these to set your own values to a (const1) and b (const2)
+Additionally there are two entries / text boxes and a 'Set' button. Use these to use your own values for a (const1) and b (const2) on the text boxes. This can also be used to use the selected color mode.  
+The text boxes will show the current a and b values; they update whenever the 'Random' button is pressed
 
 #### Parametric Equations
 
