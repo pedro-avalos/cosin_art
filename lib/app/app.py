@@ -65,7 +65,7 @@ class App:
         self.const2_entry.config(bg='Black', bd=2, fg='White')
         self.const2_entry.pack(side=tk.LEFT, fill=tk.BOTH)
 
-        self.color_options = ['Rainbow', 'Red', 'Green', 'Blue', 'White']
+        self.color_options = ['Rainbow', 'Red', 'Green', 'Blue', 'White', 'Black']
 
         self.color_variable = tk.StringVar()
         self.color_variable.set(self.color_options[0])
@@ -97,6 +97,10 @@ class App:
             self.canvas.delete(self.image)
         self.image = ImageTk.PhotoImage(self.pil_image)
         self.canvas.create_image(size[0]/2, size[1]/2, image=self.image)
+        if self.color_variable.get() == 'Black':
+            self.canvas.config(background='White')
+        else:
+            self.canvas.config(background='Black')
 
         self.entry_text1.set(self.calculator.const1)
         self.entry_text2.set(self.calculator.const2)
@@ -108,4 +112,4 @@ class App:
             const1 = self.calculator.const1
             const2 = self.calculator.const2
 
-            self.pil_image.save(f'../data/image_a{const1}_b{const2}.bmp')
+            self.pil_image.save(f'./data/image_a{const1}_b{const2}.bmp')

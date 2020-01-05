@@ -73,7 +73,10 @@ class Calculator:
         else:
             size, start = self.calc_bounds()
 
-            self.img = Image.new('RGB', size, 'Black')
+            if color_mode == 'Black':
+                self.img = Image.new('RGB', size, 'White')
+            else:
+                self.img = Image.new('RGB', size, 'Black')
             self.draw = ImageDraw.Draw(self.img)
 
             for t in range(self.iterations):
@@ -86,6 +89,8 @@ class Calculator:
                     color = (0, 0, int(color_fraction * 255))
                 elif color_mode == 'White':
                     color = (int(color_fraction * 255), int(color_fraction * 255), int(color_fraction * 255))
+                elif color_mode == 'Black':
+                    color = (0, 0, 0)
                 else:
                     color = hsv2rgb(color_fraction, 1, 1)
 
