@@ -19,7 +19,8 @@ Modules:
  
 ### Installation
 
-Clone or download the .zip file of the project. Then unzip the file and run lib/main.py
+Clone or download the .zip file of the project. Then unzip the file and run lib/main.py.  
+To run it you use cmd and go to the directory using cd, then use `python main.py`.
 
 ### Usage
 
