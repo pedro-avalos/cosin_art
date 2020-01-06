@@ -40,3 +40,5 @@ The text boxes will show the current a and b values; they update whenever the 'R
 
 x(t) = 100 * (cos(t * a) + sin(t * b))  
 y(t) = 100 * (sin(t * a) + cos(t * b))  
+
+You can watch an animated version here: <https://www.desmos.com/calculator/gsgupnzcfy>
