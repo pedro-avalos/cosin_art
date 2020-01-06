@@ -1,3 +1,7 @@
+layout: page
+title: "SAVING"
+permalink: /help/saving/
+
 # How to save images
 
 Images are saved in the "data" folder when one clicks the "Save" button.  
