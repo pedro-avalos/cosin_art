@@ -1,5 +1,7 @@
 from lib.calculator.calculator import Calculator
 
+import os
+import sys
 import tkinter as tk
 from PIL import ImageTk
 
@@ -34,6 +36,8 @@ class App:
 
         self.butt_frame_2 = tk.Frame(self.master, background=self.menu_color)
         self.butt_frame_2.pack(side=tk.LEFT, fill=tk.BOTH)
+
+        self.save_directory = f'{os.path.dirname(sys.argv[0])}/data/'
 
         self.save_button = tk.Button(self.butt_frame_1, text='Save', command=self.save)
         self.save_button.config(bg=self.menu_color, bd=2, fg='White')
@@ -112,4 +116,7 @@ class App:
             const1 = self.calculator.const1
             const2 = self.calculator.const2
 
-            self.pil_image.save(f'./data/image_a{const1}_b{const2}.bmp')
+            if not os.path.exists(self.save_directory):
+                os.makedirs(self.save_directory)
+
+            self.pil_image.save(f'{self.save_directory}{self.color_variable.get()}_a{const1}_b{const2}.bmp')
