@@ -10,6 +10,8 @@ Python 3.x <https://www.python.org/downloads/>
 Pip (included with Python installation)  
 
 Modules:
+* os (included with Python installation)
+* sys (included with Python installation)
 * colorsys (included with Python installation)
 * math (included with Python installation)
 * random (included with Python installation)
