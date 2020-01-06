@@ -146,13 +146,23 @@ class Calculator:
                 # If statements to determine what color to use for the point
                 # Generally, the value is larger the farther the iteration is
                 if color_mode == 'Red':
-                    color = (int(color_fraction * 255), 0, 0)
+                    color = hsv2rgb(0, 1, color_fraction)
                 elif color_mode == 'Green':
-                    color = (0, int(color_fraction * 255), 0)
+                    color = hsv2rgb(0.33, 1, color_fraction)
                 elif color_mode == 'Blue':
-                    color = (0, 0, int(color_fraction * 255))
+                    color = hsv2rgb(0.66, 1, color_fraction)
+                elif color_mode == 'Yellow':
+                    color = hsv2rgb(0.16, 1, color_fraction)
+                elif color_mode == 'Orange':
+                    color = hsv2rgb(0.083, 1, color_fraction)
+                elif color_mode == 'Purple':
+                    color = hsv2rgb(0.83, 1, color_fraction)
+                elif color_mode == 'Cyan':
+                    color = hsv2rgb(0.5, 1, color_fraction)
+                elif color_mode == 'Pink':
+                    color = hsv2rgb(0.972, .25, color_fraction)
                 elif color_mode == 'White':
-                    color = (int(color_fraction * 255), int(color_fraction * 255), int(color_fraction * 255))
+                    color = hsv2rgb(0, 0, color_fraction)
                 elif color_mode == 'Black':
                     # In the case of the black mode, the value is always the same
                     color = (0, 0, 0)

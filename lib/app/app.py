@@ -5,6 +5,24 @@ import sys
 import tkinter as tk
 from PIL import ImageTk
 
+# Tuple of the available color modes
+COLOR_OPTIONS = (
+    'Rainbow',
+    'Red',
+    'Green',
+    'Blue',
+    'Yellow',
+    'Orange',
+    'Purple',
+    'Cyan',
+    'Pink',
+    'White',
+    'Black'
+)
+
+# Directory to save the images at (data folder)
+SAVE_DIR = f'{os.path.dirname(sys.argv[0])}/data/'
+
 
 # App class that handles the GUI
 class App:
@@ -72,9 +90,6 @@ class App:
         # This also expands and fills up the app as it is resized
         self.butt_frame_2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
-        # Directory to save the images at (data folder)
-        self.save_directory = f'{os.path.dirname(sys.argv[0])}/data/'
-
         # Button to save the image
         self.save_button = tk.Button(self.butt_frame_1, text='Save', command=self.save)
         # The background color is the menu color, and the foreground is white
@@ -138,16 +153,13 @@ class App:
         # This also fills up the x and y space available
         self.const_2_entry.pack(side=tk.LEFT, fill=tk.BOTH)
 
-        # Tuple of the available color modes
-        self.color_options = ('Rainbow', 'Red', 'Green', 'Blue', 'White', 'Black')
-        
         # Selected color mode
         self.color_mode = tk.StringVar()
         # By default it is the first in the tuple (rainbow)
-        self.color_mode.set(self.color_options[0])
+        self.color_mode.set(COLOR_OPTIONS[0])
 
         # Dropdown menu (called option menu in tkinter) for the color mode
-        self.color_menu = tk.OptionMenu(self.graph_options_frame, self.color_mode, *self.color_options)
+        self.color_menu = tk.OptionMenu(self.graph_options_frame, self.color_mode, *COLOR_OPTIONS)
         # The background is the menu color and the foreground is white
         # It also has a small border (2 pixels)
         # The option menu has a highlight by default, but this is set to 0 to make it look more like a button
@@ -222,9 +234,9 @@ class App:
             const_2 = self.calculator.const_2
 
             # Check if directory where images are saved doesn't exist
-            if not os.path.exists(self.save_directory):
+            if not os.path.exists(SAVE_DIR):
                 # If it doesn't exist, then create it
-                os.makedirs(self.save_directory)
+                os.makedirs(SAVE_DIR)
 
             # Save the Pillow image
-            self.pil_image.save(f'{self.save_directory}{self.color_mode.get()}_a{const_1}_b{const_2}.bmp')
+            self.pil_image.save(f'{SAVE_DIR}{self.color_mode.get()}_a{const_1}_b{const_2}.bmp')
