@@ -1,6 +1,6 @@
-layout: page
-title: "SAVING"
-permalink: /help/saving/
+layout: page  
+title: "SAVING"  
+permalink: /help/saving/  
 
 # How to save images
 
